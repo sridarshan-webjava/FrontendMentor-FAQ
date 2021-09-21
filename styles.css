@@ -19,6 +19,8 @@
     --fs-primary:1.75rem;
     --fs-secondary:0.9rem;
     --fs-base:0.8125rem;
+    
+    --fs-max-base:clamp(0.75rem,1vw,0.85rem);
 
     --fw-base:400;
     --fw-accent:700;
@@ -41,10 +43,6 @@ body{
     padding:10em 0 3em;
 }
 
-img{
-    max-width:100%;
-}
-
 hr{
     color:var(--clr-line);
     border:1px solid;
@@ -52,7 +50,7 @@ hr{
 
 .container{
     width:94%;
-    max-width:390px;
+    max-width:500px;
     padding:2em;
     background:var(--clr-card);
     border-radius:30px;
@@ -61,12 +59,13 @@ hr{
     position:relative;
 }
 
-.box-image{
-    display:none;
-}
-
 .image-container{
     height:auto;
+}
+
+.woman-desktop,
+.box-image{
+    display:none;
 }
 
 .woman-mobile{
@@ -94,27 +93,56 @@ hr{
 
 .block-wrapper{
     margin:1.25em 0;
+    height:auto;
+    transition:height 0.25s;
 }
 
 .question{
     color:var(--clr-neutral-200);
     display:flex;
     justify-content:space-between;
+    cursor:pointer;
+}
+
+.question-desc:hover{
+    color:var(--clr-primary-active);
 }
 
 .question .btn{
     background:none;
     border:none;
     outline:none;
+    cursor:pointer;
+    transform:rotate(0deg);
+    transition:0.25s;
+}
+
+.answer-desc{
+    line-height:1.55;
+    margin-top:1em;
 }
 
 .answer{
-    margin-top:1em;
-    line-height:1.55;
-    display:none;
+  max-height:0;
+  overflow: hidden;
+  transition:0.25s ease-in-out;
 }
 
-@media screen and (min-width:950px){
+.display-block{
+  max-height:75px;
+  transition:0.25s ease-in-out;
+}
+
+.question .flip{
+    transform:rotate(180deg);
+}
+
+.highlight{
+    font-weight:700;
+    color:var(--clr-primary-accent);
+}
+
+@media screen and (min-width:840px){
 
     body{
         padding:0;
@@ -122,29 +150,27 @@ hr{
 
     .container{
         width:70vw;
-        max-width:100%;
+        max-width:900px;
         padding:0;
         flex-direction: row;
     }
 
-    .box-image{
-        display:inline-block;
-        position:relative;
-        width:40%;
-        left:-27.75%;
-        top:40%;
+    .image-container{
+        height:auto;
+        flex-basis:100%;
+        overflow:hidden;
+        background:url("https://sridarshan-webjava.github.io/FrontendMentor-FAQ/images/bg-pattern-desktop.svg") right 2vw bottom -8vw/60vw no-repeat;
     }
 
     .woman-mobile{
         display:none;
     }
 
-    .image-container{
-        height:auto;
-        flex-basis:100%;
-        background:url("images/illustration-woman-online-desktop.svg") left -5.75vw center/contain no-repeat,
-                   url("images/bg-pattern-desktop.svg") right 4vw top -10vw/50vw no-repeat;
-        padding-left:5em;
+    .woman-desktop{
+        display:block;
+        width:100%;
+        position:relative;
+        bottom:-10vh;
     }
 
     .text-container{
@@ -156,9 +182,33 @@ hr{
     .q-and-a-container{
         width:100%;
         max-width:350px;
+        font-size:var(--fs-max-base);
     }
 
     .title{
         text-align:left;
     }
+}
+
+@media screen and (min-width:1100px){
+    .image-container{
+        background-position:right 3.5vw bottom -12vw;
+    }
+
+    .woman-desktop{
+        display:block;
+        width:105%;
+        position:relative;
+        bottom:-7vh;
+        right:5vw;
+    }
+
+    .box-image{
+        display:inline-block;
+        position:absolute;
+        width:18%;
+        top:42%;
+        left:-9.25%;
+    }
+
 }
